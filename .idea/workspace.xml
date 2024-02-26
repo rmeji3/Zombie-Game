@@ -7,9 +7,13 @@
     <list default="true" id="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/maps/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/maps/map.txt" afterDir="false" />
+    </list>
+    <list id="e1fc1dfb-39b5-4046-bb10-cfce82392465" name="Changes by haide" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +29,39 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java">
+      <ranges>
+        <range start1="8" end1="9" start2="8" end2="8" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="10" end1="12" start2="9" end2="9" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="18" end1="19" start2="15" end2="20" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="21" end1="26" start2="22" end2="22" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="30" end1="30" start2="26" end2="31" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
+        <range start1="40" end1="40" start2="41" end2="42" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="41" end1="41" start2="43" end2="47" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="42" end1="46" start2="48" end2="48" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="52" end1="54" start2="54" end2="55" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="59" end1="61" start2="60" end2="158" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="63" end1="66" start2="160" end2="160" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="67" end1="81" start2="161" end2="169" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="83" end1="85" start2="171" end2="178" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="86" end1="93" start2="179" end2="181" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="94" end1="110" start2="182" end2="183" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="117" end1="118" start2="190" end2="190" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="120" end1="145" start2="192" end2="195" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="146" end1="152" start2="196" end2="198" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="154" end1="154" start2="200" end2="203" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java">
+      <ranges>
+        <range start1="1" end1="1" start2="1" end2="2" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="6" end1="7" start2="7" end2="7" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="28" end1="31" start2="28" end2="28" changelist="e1fc1dfb-39b5-4046-bb10-cfce82392465" />
+        <range start1="43" end1="43" start2="40" end2="43" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
+      </ranges>
+    </file>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -42,26 +79,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.run main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "openjdk-21",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "GitLink.ProjectSettings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.run main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;GitLink.ProjectSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.example.zombiegame" />
@@ -97,7 +134,9 @@
       <option name="presentableId" value="Default" />
       <updated>1708756830640</updated>
       <workItem from="1708756831708" duration="8836000" />
-      <workItem from="1708907850390" duration="6361000" />
+      <workItem from="1708907850390" duration="6886000" />
+      <workItem from="1708915185875" duration="1821000" />
+      <workItem from="1708928103233" duration="4083000" />
     </task>
     <servers />
   </component>

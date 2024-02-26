@@ -1,16 +1,19 @@
 package org.example.zombiegame;
 
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Map {
 
+    private final int TILE_SIZE = 50;
     private int widthSize;
     private int heightSize;
     private int[][] grid;
@@ -18,28 +21,28 @@ public class Map {
 
     private GridPane gridPane;
 
-    ArrayList<Rectangle> lakeList = new ArrayList<>();
-
     public Map(GridPane gridPane){
         this.gridPane = gridPane;
 
         readMap(mapFileName);
         paintMap();
-//        printMatrix();
     }
 
     private void paintMap() {
-        int tileSize = 50;
-
         for (int i = 0; i < widthSize; i++) {
             for (int j = 0; j < heightSize; j++) {
-                Rectangle tile = new Rectangle(tileSize, tileSize);
-                tile.setFill(paintBlock(grid[i][j], tile));
+                Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
+                tile.setFill(paintBlock(grid[i][j]));
 
-                GridPane.setRowIndex(tile, i);
-                GridPane.setColumnIndex(tile, j);
+//                Text text = new Text("" + grid[i][j]);
 
-                gridPane.getChildren().add(tile);
+                StackPane stack = new StackPane();
+                stack.getChildren().addAll(tile);
+
+                GridPane.setRowIndex(stack, i);
+                GridPane.setColumnIndex(stack, j);
+
+                gridPane.getChildren().add(stack);
             }
         }
     }
@@ -102,16 +105,12 @@ public class Map {
         }
     }
 
-    private Color paintBlock(int id, Rectangle tile){
-        //water
+    private Color paintBlock(int id){
         return switch (id) {
-            case 0 -> Color.web("#1d6630"); //grass
+            case 0 -> Color.web("#1d6630");//grass
             case 1 -> Color.web("#606060FF");//stone
             case 2 -> Color.web("#543222FF");//dirt
-            case 3 -> {
-                lakeList.add(tile);
-                yield Color.web("#247abf");//water
-            }
+            case 3 -> Color.web("#247abf"); //water
             case 4 -> Color.web("#cfc482");//sand
             default -> Color.web("#1d6630");//grass default
         };
@@ -129,6 +128,23 @@ public class Map {
         }
     }
 
+    public int getTileAtPosition(double playerCenterX, double playerCenterY) {
+        double mapOffset = widthSize * heightSize;
+
+        int gridX = (int)Math.floor((playerCenterX + mapOffset) / TILE_SIZE);
+        int gridY = (int)Math.floor((playerCenterY + mapOffset) / TILE_SIZE);
+
+//        System.out.println(gridX + " " + gridY);
+
+        if (gridX < 0 || gridX >= widthSize || gridY < 0 || gridY >= heightSize) {
+            return -1; // Out of bounds
+        }
+
+        System.out.println(grid[gridY][gridX]);
+
+        return grid[gridY][gridX]; // Use Row-major order
+    }
+
     public int getWidthSize() {
         return widthSize;
     }
@@ -137,11 +153,7 @@ public class Map {
         return heightSize;
     }
 
-    public void setHeightSize(int heightSize) {
-        this.heightSize = heightSize;
-    }
-
-    public void setWidthSize(int widthSize) {
-        this.widthSize = widthSize;
+    public int getTILE_SIZE() {
+        return TILE_SIZE;
     }
 }

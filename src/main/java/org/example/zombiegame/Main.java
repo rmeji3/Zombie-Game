@@ -1,10 +1,10 @@
 package org.example.zombiegame;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,9 +26,6 @@ public class Main extends Application {
         root = new StackPane();
         gridPane = new GridPane();
 
-        root.setStyle(
-                "-fx-background-color: #247abf;"
-        );
         gridPane.setAlignment(Pos.CENTER);
         root.getChildren().add(gridPane);
 
@@ -41,6 +38,9 @@ public class Main extends Application {
         stage.setScene(scene);
 
         root.setFocusTraversable(true);
+        root.setStyle(
+                "-fx-background-color: #247abf;"
+        );
         root.requestFocus();
         stage.show();
     }

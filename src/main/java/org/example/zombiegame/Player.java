@@ -6,28 +6,29 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Player {
     private double x;
     private double y;
-
+    private double deltaX;
+    private double deltaY;
+    private final double DEFAULT_SPEED = 2;
+    private final double DIAGONAL_SPEED_MULTIPLIER = Math.sqrt(0.5);
+    private double speed = DEFAULT_SPEED;
     private double stamina = 100;
 
-    private boolean exhausted = false;
-
-    private double defaultSpeed = 2;
-    private double speed = defaultSpeed;
-    private double diagonalSpeedMultiplier = 0.5;
     private Circle playerCharacter;
     private Set<KeyCode> pressedKeys = new HashSet<>();
 
     private AnimationTimer gameLoop;
+
+    private boolean disableMovementL = false;
+    private boolean disableMovementR = false;
+    private boolean disableMovementT = false;
+    private boolean disableMovementB = false;
 
     private StackPane root;
     private GridPane gridPane;
@@ -38,76 +39,148 @@ public class Player {
         this.playerCharacter = new Circle(20, Color.WHITE);
         this.root = root;
         this.gridPane = gridPane;
-
-        addToRoot();
-        setupGameLoop();
-        movePlayer();
         this.map = map;
 
+        setPosition(0, 0);
+        useDiagonalSpeedMultiplier();
+        handleInput();
+        setupGameLoop();
+        addToRoot();
     }
 
     private void setupGameLoop() {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                handleKeyInput();
-
+                handleMovement();
             }
         };
         gameLoop.start();
     }
 
-    private void addToRoot() {
-        root.getChildren().add(playerCharacter);
+    private void handleMovement() {
+        stopMovement();
+
+        //checkDiagonal();
+        blockBarrier();
+        isAboveTile();
+
+        if (pressedKeys.contains(KeyCode.W)) moveUp();
+        if (pressedKeys.contains(KeyCode.S)) moveDown();
+        if (pressedKeys.contains(KeyCode.A)) moveLeft();
+        if (pressedKeys.contains(KeyCode.D)) moveRight();
+
+        if (pressedKeys.contains(KeyCode.SHIFT)) useStamina();
+        else regenerateStamina();
+
+        updatePosition();
+        move();
+
+        if (pressedKeys.contains(KeyCode.G)) setPosition(0, 0);
+
+        System.out.println("Position x: " + x + " y: " + y);
     }
 
-    private void handleKeyInput() {
-        x = 0;
-        y = 0;
 
-        if (pressedKeys.contains(KeyCode.W)) y -= speed;
-        if (pressedKeys.contains(KeyCode.S)) y += speed;
-        if (pressedKeys.contains(KeyCode.A)) x -= speed;
-        if (pressedKeys.contains(KeyCode.D)) x += speed;
-        if(pressedKeys.contains(KeyCode.SHIFT)) {
-            if(stamina > 0){
-                speed = defaultSpeed * 1.5;
-                stamina -= 0.1;
-            }else{
-                speed = defaultSpeed;
-            }
+    public void isAboveTile() {
+        int tileType = map.getTileAtPosition(x, y);
+        speed = (tileType == 3) ? DEFAULT_SPEED * 0.5 : DEFAULT_SPEED;
+    }
+
+    private void move() {
+        gridPane.setTranslateX(Math.round(gridPane.getTranslateX() - deltaX));
+        gridPane.setTranslateY(Math.round(gridPane.getTranslateY() - deltaY));
+    }
+    private void blockBarrier(){
+        double leftBarrier = -((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) + playerCharacter.getRadius();
+        double rightBarrier = ((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) - playerCharacter.getRadius();
+        double topBarrier = -((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) + playerCharacter.getRadius();
+        double bottomBarrier = ((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) - playerCharacter.getRadius();
+
+        System.out.println(rightBarrier + " " + x);
+
+        if(x <= leftBarrier){
+            setPosition(leftBarrier ,y);
+        }
+        if(x >= rightBarrier ){
+           setPosition(rightBarrier ,y);
+        }
+        if(y >= bottomBarrier){
+            setPosition(x ,bottomBarrier);
+        }
+        if(y <= topBarrier){
+            setPosition(x ,topBarrier);
+        }
+    }
+
+    private void checkDiagonal(){
+        if (    (pressedKeys.contains(KeyCode.W) && pressedKeys.contains(KeyCode.A) ||
+                (pressedKeys.contains(KeyCode.W) && pressedKeys.contains(KeyCode.D))) ||
+                (pressedKeys.contains(KeyCode.S) && pressedKeys.contains(KeyCode.A)) ||
+                (pressedKeys.contains(KeyCode.S) && pressedKeys.contains(KeyCode.D)))
+            speed /= 2;
+        else speed = DEFAULT_SPEED;
+
+    }
+
+    private void updatePosition(){
+        x += deltaX;
+        y += deltaY;
+    }
+
+    private void moveRight(){
+        deltaX += speed;
+    }
+
+    private void moveLeft(){
+        deltaX -= speed;
+    }
+
+    private void moveUp(){
+        deltaY -= speed;
+    }
+
+    private void moveDown(){
+        deltaY += speed;
+    }
+
+    private void useDiagonalSpeedMultiplier() {
+        deltaX *= DIAGONAL_SPEED_MULTIPLIER;
+        deltaY *= DIAGONAL_SPEED_MULTIPLIER;
+    }
+
+    private void setPosition(double x, double y) {
+        this.x = x;
+        this.y = y;
+        gridPane.setTranslateX(-x);
+        gridPane.setTranslateY(-y);
+
+        isAboveTile();
+    }
 
 
-
+    private void stopMovement(){
+        deltaX = 0;
+        deltaY = 0;
+    }
+    private void useStamina() {
+        if(stamina > 0){
+            speed = DEFAULT_SPEED * 1.5;
+            stamina -= 0.1;
         }
         else{
-            if(stamina < 100)
-                stamina+= .05;
-
-            speed = defaultSpeed;
+            speed = DEFAULT_SPEED;
         }
-        System.out.println(stamina);
-        if (x != 0 && y != 0) {
-            x *= Math.sqrt(diagonalSpeedMultiplier);
-            y *= Math.sqrt(diagonalSpeedMultiplier);
-        }
-
-//        gridPane.setTranslateX(gridPane.getTranslateX() - x);
-//        gridPane.setTranslateY(gridPane.getTranslateY() - y);
-
-//        double rootX = root.getWidth()/2;
-//        double rootY = root.getHeight()/2;
-
-        // move the map
-//        isAboveTile(rootX,rootY ,map.lakeList, .5 );
-        gridPane.setTranslateX(Math.round(gridPane.getTranslateX() - x));
-        gridPane.setTranslateY(Math.round(gridPane.getTranslateY() - y));
-
-
-        //System.out.println("Player x: " + x + " y: " + y);
     }
 
-    private void movePlayer() {
+    private void regenerateStamina(){
+        if(stamina < 100)
+            stamina+= .05;
+
+        speed = DEFAULT_SPEED;
+    }
+
+    private void handleInput() {
         root.setOnKeyPressed(event -> {
             pressedKeys.add(event.getCode());
         });
@@ -115,41 +188,17 @@ public class Player {
         root.setOnKeyReleased(event -> {
             pressedKeys.remove(event.getCode());
         });
-
     }
 
-    public void isAboveTile(double playerPosX, double playerPosY, ArrayList<Rectangle> tileArray, double newSpeed) {
-        // Assume speed is a property of the player or some context we can modify
-        boolean isWithinTile = false;
-
-        // Iterate through each tile to check if the player is within it
-        for(Rectangle tile : tileArray){
-            // Get player's position and size
-//           double playerPosX = playerCharacter.getCenterX();
-//           double playerPosY = playerCharacter.getCenterY();
-
-            // Get tile's position and size
-            double tileMinX = tile.getX();
-            double tileMaxX = tile.getX() + tile.getWidth();
-            double tileMinY = tile.getY();
-            double tileMaxY = tile.getY() + tile.getHeight();
-
-            System.out.println("Tile x: "  +tileMinX + " Tile y: " + tileMaxY);
-            System.out.println("player x: "  +playerPosX + " player y: " + playerPosY);
-
-            // Check if the player is within the tile
-            if(playerPosX > tileMinX && playerPosX < tileMaxX && playerPosY > tileMinY && playerPosY < tileMaxY){
-                isWithinTile = true;
-                break; // Exit the loop as we only need one tile to slow the player
-            }
-        }
-
-        // Adjust the player's speed based on whether they are within a tile
-        if(isWithinTile){
-            speed = newSpeed; // Assuming 'speed' is accessible and modifiable here
-        } else {
-            speed = defaultSpeed; // Assuming 'defaultSpeed' is defined and accessible
-        }
+    private void addToRoot() {
+        root.getChildren().add(playerCharacter);
     }
 
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
 }
