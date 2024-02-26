@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Map {
 
@@ -17,11 +18,14 @@ public class Map {
 
     private GridPane gridPane;
 
+    ArrayList<Rectangle> lakeList = new ArrayList<>();
+
     public Map(GridPane gridPane){
         this.gridPane = gridPane;
 
         readMap(mapFileName);
         paintMap();
+//        printMatrix();
     }
 
     private void paintMap() {
@@ -30,7 +34,7 @@ public class Map {
         for (int i = 0; i < widthSize; i++) {
             for (int j = 0; j < heightSize; j++) {
                 Rectangle tile = new Rectangle(tileSize, tileSize);
-                tile.setFill(paintBlock(grid[i][j]));
+                tile.setFill(paintBlock(grid[i][j], tile));
 
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
@@ -98,12 +102,16 @@ public class Map {
         }
     }
 
-    private Color paintBlock(int id){
+    private Color paintBlock(int id, Rectangle tile){
+        //water
         return switch (id) {
-            case 0 -> Color.web("#1d6630");//grass
+            case 0 -> Color.web("#1d6630"); //grass
             case 1 -> Color.web("#606060FF");//stone
             case 2 -> Color.web("#543222FF");//dirt
-            case 3 -> Color.web("#247abf"); //water
+            case 3 -> {
+                lakeList.add(tile);
+                yield Color.web("#247abf");//water
+            }
             case 4 -> Color.web("#cfc482");//sand
             default -> Color.web("#1d6630");//grass default
         };
