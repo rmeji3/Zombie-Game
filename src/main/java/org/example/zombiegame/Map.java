@@ -1,9 +1,13 @@
 package org.example.zombiegame;
 
+import org.example.zombiegame.placable.Stone;
+import org.example.zombiegame.placable.Tree;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -17,43 +21,61 @@ public class Map {
     private int widthSize;
     private int heightSize;
     private int[][] grid;
-    private final String mapFileName = "map.txt";
+    private String mapFileName;
 
     private GridPane gridPane;
 
     public Map(GridPane gridPane){
         this.gridPane = gridPane;
+        this.mapFileName = "map.txt";
 
         readMap(mapFileName);
         paintMap();
     }
 
+    private ImagePattern getTileResource(int tileID){
+        String fileName = "/tiles/";
+
+        switch(tileID) {
+            case 0:
+                fileName += "grasses/grass.png";
+                break;
+            case 1:
+                fileName += "stones/stone.png";
+                break;
+            case 2:
+                fileName += "dirts/dirt.png";
+                break;
+            case 3:
+                fileName += "waters/water.png";
+                break;
+            case 4:
+                fileName += "sands/sand.png";
+                break;
+            default:
+                fileName += "grasses/grass.png";
+        }
+
+        Image image = ImageCache.getImage(fileName);
+        ImagePattern imagePattern = new ImagePattern(image);
+
+        return imagePattern;
+    }
     private void paintMap() {
         for (int i = 0; i < widthSize; i++) {
             for (int j = 0; j < heightSize; j++) {
                 Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
-                tile.setFill(paintBlock(grid[i][j]));
+                tile.setFill(getTileResource(grid[i][j]));
 
-//                Text text = new Text("" + grid[i][j]);
+                GridPane.setRowIndex(tile, i);
+                GridPane.setColumnIndex(tile, j);
 
-                StackPane stack = new StackPane();
-                stack.getChildren().addAll(tile);
-
-                GridPane.setRowIndex(stack, i);
-                GridPane.setColumnIndex(stack, j);
-
-                gridPane.getChildren().add(stack);
+                gridPane.getChildren().add(tile);
             }
         }
     }
 
-    /*
-    Reads the map file
-    First 2 numbers on the map file are width and height
-    The numbers under are the matricies for the map
-    Initializes widthSize, heightSize, and grid[][]
-     */
-    public void readMap(String fileName){
+    private void readMap(String fileName){
 
         BufferedReader reader = null;
 
@@ -116,33 +138,27 @@ public class Map {
         };
     }
 
-    /*
-    To test if matrix is made properly
-     */
-    private void printMatrix(){
-        for(int i = 0; i < widthSize; i++){
-            for(int j = 0; j < heightSize; j++){
-                System.out.print(grid[i][j] + " ");
-            }
-            System.out.println();
-        }
+    private void changeTileResource(){
+
     }
 
-    public int getTileAtPosition(double playerCenterX, double playerCenterY) {
+    public void highlightTile(double x, double y){
+        getTileAtPosition(x, y);
+    }
+
+    public int getTileAtPosition(double x, double y) {
         double mapOffset = widthSize * heightSize;
 
-        int gridX = (int)Math.floor((playerCenterX + mapOffset) / TILE_SIZE);
-        int gridY = (int)Math.floor((playerCenterY + mapOffset) / TILE_SIZE);
-
-//        System.out.println(gridX + " " + gridY);
+        int gridX = (int)Math.floor((y + mapOffset) / TILE_SIZE);
+        int gridY = (int)Math.floor((x + mapOffset) / TILE_SIZE);
 
         if (gridX < 0 || gridX >= widthSize || gridY < 0 || gridY >= heightSize) {
             return -1; // Out of bounds
         }
 
-        System.out.println(grid[gridY][gridX]);
+        //System.out.println(grid[gridX][gridY]);
 
-        return grid[gridY][gridX]; // Use Row-major order
+        return grid[gridX][gridY]; // Use Row-major order
     }
 
     public int getWidthSize() {

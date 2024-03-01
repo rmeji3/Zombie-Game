@@ -1,11 +1,13 @@
 package org.example.zombiegame;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,30 +22,28 @@ public class Player {
     private double speed = DEFAULT_SPEED;
     private double stamina = 100;
 
-    private Circle playerCharacter;
+    private final ToolBar toolBar;
+
+    private Rectangle playerCharacter;
     private Set<KeyCode> pressedKeys = new HashSet<>();
 
     private AnimationTimer gameLoop;
-
-    private boolean disableMovementL = false;
-    private boolean disableMovementR = false;
-    private boolean disableMovementT = false;
-    private boolean disableMovementB = false;
 
     private StackPane root;
     private GridPane gridPane;
 
     private Map map;
+    PlacableObjectMap placableObjectMap;
 
-    public Player(StackPane root, GridPane gridPane, Map map) {
-        this.playerCharacter = new Circle(20, Color.WHITE);
+    public Player(StackPane root, GridPane gridPane, Map map, PlacableObjectMap placableObjectMap, ToolBar toolBar) {
         this.root = root;
         this.gridPane = gridPane;
         this.map = map;
+        this.placableObjectMap = placableObjectMap;
+        this.toolBar = toolBar;
 
         setPosition(0, 0);
-        useDiagonalSpeedMultiplier();
-        handleInput();
+        drawPlayer();
         setupGameLoop();
         addToRoot();
     }
@@ -52,58 +52,117 @@ public class Player {
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                mouseHandler();
+                keyboardHandler();
                 handleMovement();
             }
         };
         gameLoop.start();
     }
 
+    private void mouseHandler(){
+        highlightTileOnMouse();
+        placeObjectOnMouse();
+    }
+
+    private void highlightTileOnMouse(){
+        root.setOnMouseMoved(event -> {
+            double mouseX = event.getSceneX();
+            double mouseY = event.getSceneY();
+
+            double gridPaneX = mouseX - gridPane.getLayoutX();
+            double gridPaneY = mouseY - gridPane.getLayoutY();
+
+            double worldX = gridPaneX + x;
+            double worldY = gridPaneY + y;
+
+//            System.out.println("Mouse x: " + mouseX + " y: " + mouseY);
+//            System.out.println("GridPane x: " + gridPaneX + " y: " + gridPaneY);
+//            System.out.println("World x: " + worldX + " y: " + worldY);
+
+
+//            placableObjectMap.placeObjectAtPosition(worldX, worldY, currItemID, false);
+        });
+    }
+
+    private void placeObjectOnMouse() {
+        root.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                double mouseX = event.getSceneX();
+                double mouseY = event.getSceneY();
+
+                double gridPaneX = mouseX - gridPane.getLayoutX();
+                double gridPaneY = mouseY - gridPane.getLayoutY();
+
+                double worldX = gridPaneX + x;
+                double worldY = gridPaneY + y;
+
+//                System.out.println("Mouse x: " + mouseX + " y: " + mouseY);
+//                System.out.println("GridPane x: " + gridPaneX + " y: " + gridPaneY);
+//                System.out.println("World x: " + worldX + " y: " + worldY);
+                int currItemID = toolBar.getCurrentItem();
+                System.out.println("current id: " + currItemID);
+                System.out.println("current slot: " + toolBar.currInvSlot);
+                if(currItemID != -1){
+                    placableObjectMap.placeObjectAtPosition(worldX, worldY, currItemID, false);
+                }
+
+
+            }
+        });
+    }
+
     private void handleMovement() {
         stopMovement();
 
-        //checkDiagonal();
+        checkDiagonal();
+
         blockBarrier();
         isAboveTile();
+
+        if (pressedKeys.contains(KeyCode.SHIFT)) useStamina();
+        else regenerateStamina();
 
         if (pressedKeys.contains(KeyCode.W)) moveUp();
         if (pressedKeys.contains(KeyCode.S)) moveDown();
         if (pressedKeys.contains(KeyCode.A)) moveLeft();
         if (pressedKeys.contains(KeyCode.D)) moveRight();
 
-        if (pressedKeys.contains(KeyCode.SHIFT)) useStamina();
-        else regenerateStamina();
-
-        updatePosition();
-        move();
-
         if (pressedKeys.contains(KeyCode.G)) setPosition(0, 0);
 
-        System.out.println("Position x: " + x + " y: " + y);
+        move();
+        updatePosition();
+        resetSpeed();
     }
 
 
-    public void isAboveTile() {
+    private void drawPlayer(){
+        Image image = ImageCache.getImage("/player/player1.png");
+        ImagePattern imagePattern = new ImagePattern(image);
+        playerCharacter = new Rectangle(map.getTILE_SIZE(), map.getTILE_SIZE());
+        playerCharacter.setFill(imagePattern);
+    }
+
+    private void isAboveTile() {
         int tileType = map.getTileAtPosition(x, y);
-        speed = (tileType == 3) ? DEFAULT_SPEED * 0.5 : DEFAULT_SPEED;
+        if(tileType == 3) speed *= 0.5;
     }
 
     private void move() {
-        gridPane.setTranslateX(Math.round(gridPane.getTranslateX() - deltaX));
-        gridPane.setTranslateY(Math.round(gridPane.getTranslateY() - deltaY));
+        gridPane.setTranslateX((gridPane.getTranslateX() - deltaX));
+        gridPane.setTranslateY((gridPane.getTranslateY() - deltaY));
     }
     private void blockBarrier(){
-        double leftBarrier = -((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) + playerCharacter.getRadius();
-        double rightBarrier = ((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) - playerCharacter.getRadius();
-        double topBarrier = -((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) + playerCharacter.getRadius();
-        double bottomBarrier = ((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) - playerCharacter.getRadius();
-
-        System.out.println(rightBarrier + " " + x);
+        double leftBarrier = -((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) + (playerCharacter.getWidth() / 2);
+        double rightBarrier = ((map.getWidthSize() / 2.0) * map.getTILE_SIZE()) - (playerCharacter.getWidth() / 2);
+        double topBarrier = -((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) + (playerCharacter.getHeight() / 2);
+        double bottomBarrier = ((map.getHeightSize() / 2.0) * map.getTILE_SIZE()) - (playerCharacter.getHeight() / 2);
 
         if(x <= leftBarrier){
             setPosition(leftBarrier ,y);
         }
         if(x >= rightBarrier ){
-           setPosition(rightBarrier ,y);
+            setPosition(rightBarrier ,y);
         }
         if(y >= bottomBarrier){
             setPosition(x ,bottomBarrier);
@@ -119,8 +178,6 @@ public class Player {
                 (pressedKeys.contains(KeyCode.S) && pressedKeys.contains(KeyCode.A)) ||
                 (pressedKeys.contains(KeyCode.S) && pressedKeys.contains(KeyCode.D)))
             speed /= 2;
-        else speed = DEFAULT_SPEED;
-
     }
 
     private void updatePosition(){
@@ -154,8 +211,6 @@ public class Player {
         this.y = y;
         gridPane.setTranslateX(-x);
         gridPane.setTranslateY(-y);
-
-        isAboveTile();
     }
 
 
@@ -165,22 +220,21 @@ public class Player {
     }
     private void useStamina() {
         if(stamina > 0){
-            speed = DEFAULT_SPEED * 1.5;
+            speed *= 1.5;
             stamina -= 0.1;
         }
-        else{
-            speed = DEFAULT_SPEED;
-        }
+    }
+
+    private void resetSpeed(){
+        speed = DEFAULT_SPEED;
     }
 
     private void regenerateStamina(){
         if(stamina < 100)
             stamina+= .05;
-
-        speed = DEFAULT_SPEED;
     }
 
-    private void handleInput() {
+    private void keyboardHandler() {
         root.setOnKeyPressed(event -> {
             pressedKeys.add(event.getCode());
         });
