@@ -55,7 +55,7 @@ public class PlaceableObjectMap {
             return; // Out of bounds
         }
 
-        if(grid[gridX][gridY])
+//        if(grid[gridX][gridY])
         placableObjectList.add(getObject(objectID));
         grid[gridX][gridY] = objectID;
         paintObject(gridX, gridY, getObject(objectID));
