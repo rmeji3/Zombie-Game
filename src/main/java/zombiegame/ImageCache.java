@@ -1,4 +1,4 @@
-package org.example.zombiegame;
+package zombiegame;
 
 import javafx.scene.image.Image;
 import java.util.HashMap;

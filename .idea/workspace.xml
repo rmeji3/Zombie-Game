@@ -5,15 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/ToolBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/ImageCache.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/PlacableObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/PlacableObjectMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/ToolBar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/placable/Tree.java" beforeDir="false" />
     </list>
     <list id="f7257d13-469d-440d-a26e-7c2f64ae36dc" name="Changes by haide" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Map.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/zombiegame/placable/Stone.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,55 +34,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Player.java">
-      <ranges>
-        <range start1="3" end1="3" start2="3" end2="4" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="4" end1="4" start2="5" end2="6" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="6" end1="8" start2="8" end2="10" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="21" end1="21" start2="23" end2="25" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="22" end1="23" start2="26" end2="27" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="27" end1="32" start2="31" end2="31" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="36" end1="36" start2="35" end2="36" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="37" end1="39" start2="37" end2="38" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="42" end1="42" start2="41" end2="43" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="44" end1="46" start2="45" end2="46" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="54" end1="54" start2="54" end2="56" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="60" end1="60" start2="62" end2="114" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="63" end1="64" start2="117" end2="119" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="67" end1="67" start2="122" end2="125" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="72" end1="74" start2="130" end2="131" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="75" end1="76" start2="132" end2="132" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="77" end1="77" start2="133" end2="136" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="78" end1="79" start2="137" end2="137" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="80" end1="81" start2="138" end2="143" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="83" end1="85" start2="145" end2="146" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="86" end1="87" start2="147" end2="148" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="90" end1="92" start2="151" end2="153" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="94" end1="100" start2="155" end2="159" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="105" end1="106" start2="164" end2="165" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="121" end1="123" start2="180" end2="180" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="156" end1="158" start2="213" end2="213" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="167" end1="168" start2="222" end2="223" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="170" end1="173" start2="225" end2="229" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="178" end1="180" start2="234" end2="234" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="182" end1="183" start2="236" end2="237" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-      </ranges>
-    </file>
-    <file path="$PROJECT_DIR$/src/main/java/org/example/zombiegame/Main.java">
-      <ranges>
-        <range start1="8" end1="10" start2="8" end2="10" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="16" end1="16" start2="16" end2="17" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="21" end1="21" start2="22" end2="26" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="23" end1="24" start2="28" end2="29" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="33" end1="34" start2="38" end2="47" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-        <range start1="37" end1="37" start2="50" end2="52" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="38" end1="39" start2="53" end2="55" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="43" end1="43" start2="59" end2="61" changelist="6c393ee9-8b88-4567-9274-e4a7f3ce9a58" />
-        <range start1="44" end1="44" start2="62" end2="63" changelist="f7257d13-469d-440d-a26e-7c2f64ae36dc" />
-      </ranges>
-    </file>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -127,7 +83,7 @@
   </component>
   <component name="RunManager">
     <configuration name="run main" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="org.example.zombiegame.Main" />
+      <option name="MAIN_CLASS_NAME" value="zombiegame.Main" />
       <module name="ZombieGame" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -153,7 +109,8 @@
       <workItem from="1708907850390" duration="6886000" />
       <workItem from="1708915185875" duration="1821000" />
       <workItem from="1708928103233" duration="4532000" />
-      <workItem from="1709263922029" duration="19110000" />
+      <workItem from="1709263922029" duration="19849000" />
+      <workItem from="1709321788875" duration="10858000" />
     </task>
     <servers />
   </component>

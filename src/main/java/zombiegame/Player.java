@@ -1,4 +1,4 @@
-package org.example.zombiegame;
+package zombiegame;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-
+import zombiegame.entities.PlaceableObjectMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,21 +21,20 @@ public class Player {
     private final double DIAGONAL_SPEED_MULTIPLIER = Math.sqrt(0.5);
     private double speed = DEFAULT_SPEED;
     private double stamina = 100;
-
-    private final ToolBar toolBar;
-
     private Rectangle playerCharacter;
-    private Set<KeyCode> pressedKeys = new HashSet<>();
-
-    private AnimationTimer gameLoop;
 
     private StackPane root;
     private GridPane gridPane;
 
-    private Map map;
-    PlacableObjectMap placableObjectMap;
+    private AnimationTimer gameLoop;
+    private Set<KeyCode> pressedKeys = new HashSet<>();
 
-    public Player(StackPane root, GridPane gridPane, Map map, PlacableObjectMap placableObjectMap, ToolBar toolBar) {
+    private Map map;
+    private PlaceableObjectMap placableObjectMap;
+    private ToolBar toolBar;
+
+
+    public Player(StackPane root, GridPane gridPane, Map map, PlaceableObjectMap placableObjectMap, ToolBar toolBar) {
         this.root = root;
         this.gridPane = gridPane;
         this.map = map;
@@ -60,11 +59,13 @@ public class Player {
         gameLoop.start();
     }
 
+    // All the mouse
     private void mouseHandler(){
         highlightTileOnMouse();
         placeObjectOnMouse();
     }
 
+    // Highlights Tiles when hovering over them
     private void highlightTileOnMouse(){
         root.setOnMouseMoved(event -> {
             double mouseX = event.getSceneX();
@@ -80,11 +81,11 @@ public class Player {
 //            System.out.println("GridPane x: " + gridPaneX + " y: " + gridPaneY);
 //            System.out.println("World x: " + worldX + " y: " + worldY);
 
-
 //            placableObjectMap.placeObjectAtPosition(worldX, worldY, currItemID, false);
         });
     }
 
+    // Place objects by clicking with left mouse click
     private void placeObjectOnMouse() {
         root.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -106,9 +107,17 @@ public class Player {
                 if(currItemID != -1){
                     placableObjectMap.placeObjectAtPosition(worldX, worldY, currItemID, false);
                 }
-
-
             }
+        });
+    }
+
+    private void keyboardHandler() {
+        root.setOnKeyPressed(event -> {
+            pressedKeys.add(event.getCode());
+        });
+
+        root.setOnKeyReleased(event -> {
+            pressedKeys.remove(event.getCode());
         });
     }
 
@@ -232,16 +241,6 @@ public class Player {
     private void regenerateStamina(){
         if(stamina < 100)
             stamina+= .05;
-    }
-
-    private void keyboardHandler() {
-        root.setOnKeyPressed(event -> {
-            pressedKeys.add(event.getCode());
-        });
-
-        root.setOnKeyReleased(event -> {
-            pressedKeys.remove(event.getCode());
-        });
     }
 
     private void addToRoot() {

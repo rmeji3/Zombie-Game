@@ -1,15 +1,11 @@
-package org.example.zombiegame;
+package zombiegame;
 
-import org.example.zombiegame.placable.Stone;
-import org.example.zombiegame.placable.Tree;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

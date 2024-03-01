@@ -1,7 +1,9 @@
-package org.example.zombiegame;
+package zombiegame.entities;
 
-import org.example.zombiegame.placable.Stone;
-import org.example.zombiegame.placable.Tree;
+import zombiegame.Map;
+import zombiegame.ToolBar;
+import zombiegame.entities.placable.Stone;
+import zombiegame.entities.placable.Tree;
 import javafx.scene.layout.GridPane;
 
 import java.io.BufferedReader;
@@ -9,7 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class PlacableObjectMap {
+public class PlaceableObjectMap {
     private final int DEFAULT_TILE_SIZE = 50;
     private int tileSize;
     private int widthSize;
@@ -20,11 +22,11 @@ public class PlacableObjectMap {
     private GridPane gridPane;
 
     private Map map;
-    private ArrayList<PlacableObject> placableObjectList;
+    private ArrayList<PlaceableObject> placableObjectList;
 
     ToolBar toolBar;
 
-    public PlacableObjectMap(GridPane gridPane, Map map, ToolBar toolBar){
+    public PlaceableObjectMap(GridPane gridPane, Map map, ToolBar toolBar){
         this.gridPane = gridPane;
         this.map = map;
         this.mapFileName = "objectMap.txt";
@@ -53,6 +55,7 @@ public class PlacableObjectMap {
             return; // Out of bounds
         }
 
+        if(grid[gridX][gridY])
         placableObjectList.add(getObject(objectID));
         grid[gridX][gridY] = objectID;
         paintObject(gridX, gridY, getObject(objectID));
@@ -60,10 +63,11 @@ public class PlacableObjectMap {
 
 
 
-    private void paintObject(int gridX, int gridY, PlacableObject placableObject){
+    private void paintObject(int gridX, int gridY, PlaceableObject placableObject){
 
-        if(toolBar.checkItemCount(placableObject)) {
-            System.out.println(placableObject.getItemName() + " count: " + toolBar.getItemCount(placableObject));
+//        toolBar.printToolBar();
+        if(toolBar.getCurrentItem() != -1 && toolBar.checkItemCount(placableObject)) {
+//            System.out.println(placableObject.getItemName() + " count: " + toolBar.getItemCount(placableObject));
             GridPane.setRowIndex(placableObject.getObjectTile(), gridX);
             GridPane.setColumnIndex(placableObject.getObjectTile(), gridY);
             gridPane.getChildren().add(placableObject.getObjectTile());
@@ -72,8 +76,8 @@ public class PlacableObjectMap {
             System.out.println("no more "  + placableObject.getItemName());
     }
 
-    private PlacableObject getObject(int objectID){
-        PlacableObject newPlacableObject = null;
+    private PlaceableObject getObject(int objectID){
+        PlaceableObject newPlacableObject = null;
 
         switch(objectID) {
             case 0:
